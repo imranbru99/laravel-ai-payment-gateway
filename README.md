@@ -11,9 +11,10 @@
 
 ```
 TruvoPay/
-├── truvo-pay-core/       # Laravel/Filament Package (Gateways, Vault, Checkout, Admin, API)
-├── truvo-pay-android/    # Companion Android SMS & Notification Listener App
-└── README.md             # Master Documentation & Integration Guide
+├── truvo-pay-core/          # Laravel/Filament Package (Gateways, Vault, Checkout, Admin, API)
+├── truvo-pay-android/       # Companion Android SMS & Notification Listener App
+├── truvo-pay-woocommerce/   # Official WordPress & WooCommerce Merchant Gateway Plugin
+└── README.md                # Master Documentation & Integration Guide
 ```
 
 ---
