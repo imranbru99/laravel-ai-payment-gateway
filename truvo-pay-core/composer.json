@@ -1,0 +1,72 @@
+{
+    "name": "truvo/pay",
+    "description": "AI-verified payment gateway platform for Laravel + Filament with companion Android SMS/notification-listener and AI fraud detection.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "filament",
+        "payment-gateway",
+        "stripe",
+        "paypal",
+        "bkash",
+        "nagad",
+        "rocket",
+        "sslcommerz",
+        "sms-verification",
+        "ai-verification",
+        "fraud-detection"
+    ],
+    "authors": [
+        {
+            "name": "Truvo Team",
+            "email": "dev@truvo.pay",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3|^8.4|^8.5",
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "illuminate/database": "^10.0|^11.0|^12.0",
+        "illuminate/http": "^10.0|^11.0|^12.0",
+        "illuminate/queue": "^10.0|^11.0|^12.0",
+        "illuminate/notifications": "^10.0|^11.0|^12.0",
+        "illuminate/contracts": "^10.0|^11.0|^12.0",
+        "illuminate/validation": "^10.0|^11.0|^12.0"
+    },
+    "suggest": {
+        "filament/filament": "Required for the Filament 3.x Admin panel resources, widgets, and AI review queue (^3.0)",
+        "imrandevbd/laravel-ai-hub": "Enables AI-driven SMS transaction parsing and fraud scoring",
+        "imrandevbd/laravel-unicode-pdf": "Enables multilingual (English, Bengali, Arabic) PDF invoice generation",
+        "imrandevbd/adhikar": "Provides role-based access control for admin and merchant teams"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Truvo\\Pay\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Truvo\\Pay\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Truvo\\Pay\\TruvoPayServiceProvider"
+            ],
+            "aliases": {
+                "TruvoPay": "Truvo\\Pay\\Facades\\TruvoPay"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

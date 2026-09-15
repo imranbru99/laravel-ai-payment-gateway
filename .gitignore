@@ -1,0 +1,19 @@
+# Root .gitignore
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Core
+/truvo-pay-core/vendor/
+/truvo-pay-core/composer.lock
+/truvo-pay-core/.phpunit.result.cache
+
+# Android
+/truvo-pay-android/.gradle/
+/truvo-pay-android/build/
+/truvo-pay-android/app/build/
+/truvo-pay-android/local.properties
+/truvo-pay-android/*.iml
+/truvo-pay-android/.idea/

@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'checkout_title' => 'Secure Checkout',
+    'order_summary' => 'Order Summary',
+    'order_id' => 'Order ID',
+    'total_amount' => 'Total Amount',
+    'select_payment_method' => 'Select Payment Method',
+    'instant_api' => 'Instant Automated Payment',
+    'manual_ai' => 'Manual Transfer (AI Auto-Verified)',
+    'send_from_number' => 'Your Mobile Number (Sender Number)',
+    'send_from_placeholder' => 'e.g. 01712345678',
+    'proceed_to_pay' => 'Proceed to Pay',
+    'pay_now' => 'Pay Now',
+    'verifying_payment' => 'Verifying Payment via AI...',
+    'payment_successful' => 'Payment Successful!',
+    'payment_failed' => 'Payment Failed',
+    'awaiting_sms' => 'Awaiting confirmation SMS from mobile operator. Please do not close this window...',
+    'instructions' => 'Payment Instructions',
+    'step1' => 'Step 1: Open your mobile banking app or dial the USSD code.',
+    'step2' => 'Step 2: Send the exact amount to the number shown above.',
+    'step3' => 'Step 3: Keep the transaction ID or wait for our AI to automatically match your payment.',
+    'secured_by' => 'Secured by Truvo Pay — AI Verified Gateway',
+    'switch_language' => 'বাংলায় দেখুন',
+];
