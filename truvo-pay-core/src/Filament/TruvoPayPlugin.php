@@ -19,6 +19,8 @@ use Truvo\Pay\Filament\Widgets\DeviceHealthWidget;
 use Truvo\Pay\Filament\Widgets\GatewayPerformanceWidget;
 use Truvo\Pay\Filament\Widgets\LiveTransactionFeedWidget;
 use Truvo\Pay\Filament\Widgets\RevenueChartWidget;
+use Truvo\Pay\WhatsApp\Filament\WhatsAppLogResource;
+use Truvo\Pay\WhatsApp\Filament\WhatsAppSettingsPage;
 
 class TruvoPayPlugin implements Plugin
 {
@@ -44,10 +46,12 @@ class TruvoPayPlugin implements Plugin
                 SettlementResource::class,
                 WebhookDeliveryLogResource::class,
                 AuditLogResource::class,
+                WhatsAppLogResource::class,
             ])
             ->pages([
                 AiReviewQueue::class,
                 AiMerchantAssistant::class,
+                WhatsAppSettingsPage::class,
             ])
             ->widgets([
                 RevenueChartWidget::class,

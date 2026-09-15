@@ -2,12 +2,16 @@
 
 namespace Truvo\Pay;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Truvo\Pay\Console\Commands\AddGatewayWizardCommand;
 use Truvo\Pay\Console\Commands\CheckDeviceHeartbeatsCommand;
 use Truvo\Pay\Console\Commands\TruvoDiagnoseCommand;
 use Truvo\Pay\Console\Commands\TruvoInstallCommand;
+use Truvo\Pay\Events\DeviceWentOffline;
+use Truvo\Pay\Events\PaymentCompleted;
+use Truvo\Pay\Events\PaymentFlagged;
 use Truvo\Pay\Http\Controllers\CheckoutController;
 use Truvo\Pay\Http\Controllers\Api\V1\AnalyticsApiController;
 use Truvo\Pay\Http\Controllers\Api\V1\CheckoutApiController;
@@ -24,6 +28,10 @@ use Truvo\Pay\Services\ReconciliationService;
 use Truvo\Pay\Services\SettlementService;
 use Truvo\Pay\Services\SmsVerificationService;
 use Truvo\Pay\Services\WebhookDispatcherService;
+use Truvo\Pay\WhatsApp\Http\WhatsAppWebhookController;
+use Truvo\Pay\WhatsApp\Listeners\SendWhatsAppPaymentReceipt;
+use Truvo\Pay\WhatsApp\Listeners\SendWhatsAppSecurityAlert;
+use Truvo\Pay\WhatsApp\WhatsAppService;
 
 class TruvoPayServiceProvider extends ServiceProvider
 {
@@ -41,6 +49,7 @@ class TruvoPayServiceProvider extends ServiceProvider
         $this->app->singleton(WebhookDispatcherService::class);
         $this->app->singleton(SettlementService::class);
         $this->app->singleton(ReconciliationService::class);
+        $this->app->singleton(WhatsAppService::class);
 
         $this->app->singleton('truvo-pay', function ($app) {
             return new TruvoPayManager(
@@ -90,6 +99,11 @@ class TruvoPayServiceProvider extends ServiceProvider
 
         // 3. Register HTTP Routes
         $this->registerRoutes();
+
+        // 4. Register WhatsApp Event Listeners
+        Event::listen(PaymentCompleted::class, SendWhatsAppPaymentReceipt::class);
+        Event::listen(PaymentFlagged::class, SendWhatsAppSecurityAlert::class);
+        Event::listen(DeviceWentOffline::class, SendWhatsAppSecurityAlert::class);
     }
 
     protected function registerRoutes(): void
@@ -119,6 +133,12 @@ class TruvoPayServiceProvider extends ServiceProvider
                     Route::post('/sms-webhook', [DeviceWebhookController::class, 'handleSms'])->name('truvo.api.devices.sms');
                     Route::post('/telemetry', [DeviceWebhookController::class, 'handleTelemetry'])->name('truvo.api.devices.telemetry');
                 });
+            });
+
+            // WhatsApp Webhook (Meta Cloud API, Twilio, UltraMsg)
+            Route::prefix('whatsapp')->group(function () {
+                Route::get('/webhook', [WhatsAppWebhookController::class, 'verify'])->name('truvo.api.whatsapp.verify');
+                Route::post('/webhook', [WhatsAppWebhookController::class, 'handle'])->name('truvo.api.whatsapp.webhook');
             });
 
             // Provider Callbacks / IPN (Stripe, SSLCommerz, PayPal, Razorpay)

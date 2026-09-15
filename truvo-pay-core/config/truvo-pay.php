@@ -86,6 +86,37 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | WhatsApp Integration Plugin
+    |--------------------------------------------------------------------------
+    */
+    'whatsapp' => [
+        'enabled' => env('TRUVO_WHATSAPP_ENABLED', true),
+        'default_driver' => env('TRUVO_WHATSAPP_DRIVER', 'fake'),
+        'merchant_alert_phone' => env('TRUVO_WHATSAPP_ALERT_PHONE', ''),
+        'auto_send_receipts' => env('TRUVO_WHATSAPP_AUTO_RECEIPTS', true),
+        'drivers' => [
+            'meta' => [
+                'phone_number_id' => env('TRUVO_WHATSAPP_META_PHONE_ID', ''),
+                'access_token' => env('TRUVO_WHATSAPP_META_TOKEN', ''),
+                'verify_token' => env('TRUVO_WHATSAPP_META_VERIFY_TOKEN', 'truvo_wa_verify_token'),
+            ],
+            'twilio' => [
+                'account_sid' => env('TRUVO_WHATSAPP_TWILIO_SID', ''),
+                'auth_token' => env('TRUVO_WHATSAPP_TWILIO_TOKEN', ''),
+                'from_number' => env('TRUVO_WHATSAPP_TWILIO_FROM', 'whatsapp:+14155238886'),
+            ],
+            'ultramsg' => [
+                'instance_id' => env('TRUVO_WHATSAPP_ULTRAMSG_INSTANCE', ''),
+                'token' => env('TRUVO_WHATSAPP_ULTRAMSG_TOKEN', ''),
+            ],
+            'fake' => [
+                // Simulates delivery for tests
+            ],
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Registered Payment Gateway Drivers
     |--------------------------------------------------------------------------
     */
